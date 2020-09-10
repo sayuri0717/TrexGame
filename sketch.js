@@ -2,7 +2,7 @@ var trex, trex_running, trex_collided;
 var ground, invisibleGround, groundImage;
 var clouds, cloudsGroup ,cloudImg;
 var obstacle, obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
-var count;
+var score;
 
 
 function preload(){
@@ -39,14 +39,14 @@ function setup() {
   invisibleGround = createSprite(200,190,400,10);
   invisibleGround.visible = false;
   
-  count=0;
+  score=0;
 }
 
 function draw() {
   background(180);
   
-  count = count + (Math.round(getFrameRate() /60));
-  text("Score: "+ count, 500, 100);
+  score = score + (Math.round(getFrameRate() /60));
+  text("Score: "+ score, 500, 100);
   
   if(keyDown("space")) {
     trex.velocityY = -10;
@@ -65,6 +65,20 @@ function draw() {
   drawSprites();
 } 
 
+function reset(){
+  gameState = PLAY;
+  
+  gameOver.visible = false;
+  restart.visible = false;
+  
+  obstaclesGroup.destroyEach();
+  cloudsGroup.destroyEach();
+  
+  trex.changeAnimation("running", trex_running);
+  
+  score = 0;
+  
+}
 
 function spawnClouds() {
   //write code here to spawn the clouds
